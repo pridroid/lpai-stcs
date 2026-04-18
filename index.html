@@ -225,33 +225,136 @@
     .footnote { text-align: center; padding: 20px; font-size: 15px; color: #888; font-style: italic; }
 
     /* ─── HOST ─── */
-    .host-wrap {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 40px; align-items: start;
-    }
-    @media (max-width: 600px) { .host-wrap { grid-template-columns: 1fr; text-align: center; } }
-    .avatar {
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: var(--orange);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; font-weight: 900; flex-shrink: 0;
+    .host-section {
+      background: linear-gradient(160deg, #0f0f0f 0%, #1a0900 50%, #0d0d0d 100%);
+      position: relative;
       overflow: hidden;
     }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    .host-name { font-size: 26px; font-weight: 900; margin-bottom: 6px; }
-    .host-title {
-      font-size: 14px; color: var(--orange);
-      font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; margin-bottom: 18px;
+    .host-section::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%; height: 100%;
+      background: radial-gradient(ellipse at right center, rgba(255,107,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .host-bio { font-size: 16px; color: #CCCCCC; line-height: 1.8; }
+    .host-wrap {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+    }
+    @media (max-width: 900px) {
+      .host-wrap { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Image side */
+    .host-img-col { position: relative; }
+    .host-img-frame {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: var(--mid-gray);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,107,0,0.15);
+    }
+    .host-img-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.7) 100%);
+      pointer-events: none;
+    }
+    .host-img-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+    }
+    /* Accent bar on left edge */
+    .host-img-frame::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 15%; bottom: 15%;
+      width: 4px;
+      background: var(--orange);
+      z-index: 2;
+      border-radius: 2px;
+    }
+    /* Credential badges */
+    .badge-tl {
+      position: absolute;
+      top: 20px; left: -14px;
+      background: var(--black);
+      border: 1px solid rgba(255,107,0,0.4);
+      border-radius: 10px;
+      padding: 12px 18px;
+      text-align: center;
+      z-index: 3;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .badge-tl .bnum { font-size: 22px; font-weight: 900; color: var(--orange); line-height: 1; }
+    .badge-tl .btxt { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+    .badge-br {
+      position: absolute;
+      bottom: 20px; right: -14px;
+      background: var(--black);
+      border: 1px solid rgba(255,107,0,0.4);
+      border-radius: 10px;
+      padding: 12px 18px;
+      text-align: center;
+      z-index: 3;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .badge-br .bnum { font-size: 22px; font-weight: 900; color: var(--orange); line-height: 1; }
+    .badge-br .btxt { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+    /* Name strip at bottom of image */
+    .img-name-strip {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 22px 18px;
+      z-index: 3;
+    }
+    .img-name-strip .iname { font-size: 18px; font-weight: 900; color: #fff; }
+    .img-name-strip .irole { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
+
+    /* Text side */
+    .host-name { font-size: 30px; font-weight: 900; margin-bottom: 6px; }
+    .host-title {
+      font-size: 13px; color: var(--orange);
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .host-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(255,107,0,0.25);
+    }
+    .host-bio { font-size: 15px; color: #CCCCCC; line-height: 1.8; }
     .host-bio p { margin-bottom: 14px; }
-    .host-stats { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 24px; }
-    @media (max-width: 600px) { .host-stats { justify-content: center; } }
-    .hstat .num { font-size: 28px; font-weight: 900; color: var(--orange); }
-    .hstat .lbl { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .bio-section-label {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 2px; color: var(--orange);
+      text-transform: uppercase; margin-bottom: 6px; margin-top: 20px;
+    }
+    .host-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 32px;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .hstat {
+      padding: 18px 16px;
+      text-align: center;
+      background: rgba(255,107,0,0.04);
+      border-right: 1px solid #2a2a2a;
+    }
+    .hstat:last-child { border-right: none; }
+    .hstat .num { font-size: 22px; font-weight: 900; color: var(--orange); line-height: 1; }
+    .hstat .lbl { font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; line-height: 1.4; }
 
     /* ─── TESTIMONIALS ─── */
     .grid-3 {
@@ -578,42 +681,70 @@
 </section>
 
 <!-- HOST -->
-<section class="bg-black">
+<section class="host-section">
   <div class="wrap">
-    <div class="center" style="margin-bottom:50px;">
+    <div class="center" style="margin-bottom:56px;">
       <div class="lbl">Meet Your Coach</div>
       <div class="ttl">Summit Tiklle: <span class="hl">₹90 Lakhs Lost</span> → ₹1700 Cr+ Impact</div>
     </div>
+
     <div class="host-wrap">
-      <!-- Replace the div below with: <img src="summit-tiklle.jpg" alt="Summit Tiklle" style="width:180px;height:220px;object-fit:cover;border-radius:12px;"> -->
-      <div class="avatar" style="width:180px;height:220px;border-radius:12px;font-size:42px;">ST</div>
+
+      <!-- IMAGE COLUMN -->
+      <div class="host-img-col">
+        <!-- Top-left badge -->
+        <div class="badge-tl">
+          <div class="bnum">₹1700Cr+</div>
+          <div class="btxt">Client Revenue<br>Impacted</div>
+        </div>
+
+        <div class="host-img-frame">
+          <img src="summit.png" alt="Summit Tiklle — Business Strategist">
+          <!-- Name strip over image bottom -->
+          <div class="img-name-strip">
+            <div class="iname">Summit Tiklle</div>
+            <div class="irole">Ex-Audi Zonal Head · International Business Strategist</div>
+          </div>
+        </div>
+
+        <!-- Bottom-right badge -->
+        <div class="badge-br">
+          <div class="bnum">13+</div>
+          <div class="btxt">Own Businesses<br>Scaled</div>
+        </div>
+      </div>
+
+      <!-- TEXT COLUMN -->
       <div>
         <div class="host-name">Summit Tiklle</div>
         <div class="host-title">Business Owner · International Business Strategist</div>
+
         <div class="host-bio">
 
-          <p style="font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">The Brutal Truth</p>
+          <div class="bio-section-label">The Brutal Truth</div>
           <p>Started his first business at <strong>age 15</strong>. By 23: <strong>13 businesses failed. ₹90 Lakhs lost.</strong> His father's verdict: <em>"Get a job. You're done."</em></p>
 
-          <p style="font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;margin-top:20px;">The Climb</p>
+          <div class="bio-section-label">The Climb</div>
           <p>Age 23–25: <strong>Zonal Head</strong> for a German luxury brand — <strong>Audi</strong>. Studied how ₹1000 Cr brands scale without chaos and found the system that changes everything.</p>
 
-          <p style="font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;margin-top:20px;">The Breakthrough</p>
+          <div class="bio-section-label">The Breakthrough</div>
           <p><strong>₹3.5 Cr</strong> business exit → <strong>₹15 Cr</strong> consulting firm → <strong>₹25 Cr+</strong> across 3 ventures.</p>
 
-          <p style="font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;margin-top:20px;">Today</p>
+          <div class="bio-section-label">Today</div>
           <p><strong>₹1700 Cr+</strong> client revenue delivered — Audi, Killer Jeans, Zandu + 2000 experts. Creator of the <strong>CashMachine Blueprint™</strong> — enabling thousands of SMBs to scale with time freedom.</p>
 
           <div style="background:rgba(255,107,0,0.08);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:18px 22px;margin-top:24px;font-style:italic;font-size:17px;color:#E8E8E8;line-height:1.6;">
             "I wasted 13 businesses learning this.<br>You won't waste one."
           </div>
         </div>
-        <div class="host-stats" style="margin-top:28px;">
+
+        <div class="host-stats">
           <div class="hstat"><div class="num">₹1700Cr+</div><div class="lbl">Client Revenue Delivered</div></div>
           <div class="hstat"><div class="num">2000+</div><div class="lbl">Experts Trained</div></div>
           <div class="hstat"><div class="num">13</div><div class="lbl">Failures Before Breakthrough</div></div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -628,34 +759,52 @@
     <div class="grid-3">
       <div class="testi-card">
         <div class="stars">★★★★★</div>
-        <p class="testi-text">"[CLIENT QUOTE — paste exact words, do not paraphrase. Include specific result: e.g. revenue number, time saved, deals closed without you]"</p>
+        <p class="testi-text">“With the CashMachine™ blueprint, we transformed from a small denim workshop into a mass-premium brand.
+        Today, we sell over 1 crore garments annually with strong profitability."</p>
         <div class="testi-author">
-          <div class="testi-av">[IN]</div>
+            <img src="killer.jpg" alt="Killer Jeans Logo"
+            style="width:75px;height:75px;object-fit:contain;background:#fff;padding:0px;border-radius:6px;">
           <div>
-            <div class="testi-name">[Client Full Name]</div>
-            <div class="testi-meta">[City] · [Industry] · Team of [X]</div>
+            <div class="testi-name">Killer Jeans</div>
+            <div class="testi-meta">INDIA· JOINT MD</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+              <div class="stars">★★★★★</div>
+              <p class="testi-text">“Summit’s research and execution helped us launch high-ticket capsule homes.
+              We scaled to ₹10 Cr in just 6 months, proving rapid innovation is possible even in traditional industries.”</p>
+              <div class="testi-author">
+                  <img src="ekbote.png" alt="Killer Jeans Logo"
+                  style="width:75px;height:75px;object-fit:contain;background:#fff;padding:0px;border-radius:6px;">
+                <div>
+                  <div class="testi-name">Ganesh Ekbote</div>
+                  <div class="testi-meta">Pune · Furniture</div>
+                </div>
+              </div>
+            </div><div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">“Summit’s research and execution helped us launch high-ticket capsule homes.
+        We scaled to ₹10 Cr in just 6 months, proving rapid innovation is possible even in traditional industries.”</p>
+        <div class="testi-author">
+            <img src="ekbote.png" alt="Killer Jeans Logo"
+            style="width:75px;height:75px;object-fit:contain;background:#fff;padding:0px;border-radius:6px;">
+          <div>
+            <div class="testi-name">Ganesh Ekbote</div>
+            <div class="testi-meta">Pune · Furniture</div>
           </div>
         </div>
       </div>
       <div class="testi-card">
         <div class="stars">★★★★★</div>
-        <p class="testi-text">"[CLIENT QUOTE — include before/after context. What was broken before, what changed after implementing the system]"</p>
+        <p class="testi-text">"Summit’s disciplined research and execution drove a 17% sales growth in just 3 months.
+        We also saw a 23% surge in our pre-owned division."</p>
         <div class="testi-author">
-          <div class="testi-av">[IN]</div>
+            <img src="audi.jpg" alt="Killer Jeans Logo"
+            style="width:75px;height:75px;object-fit:contain;background:#fff;padding:0px;border-radius:6px;">
           <div>
-            <div class="testi-name">[Client Full Name]</div>
-            <div class="testi-meta">[City] · [Industry] · Team of [X]</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"[CLIENT QUOTE — ideally includes a lifestyle outcome: first vacation, Sunday with family, team closed deal independently]"</p>
-        <div class="testi-author">
-          <div class="testi-av">[IN]</div>
-          <div>
-            <div class="testi-name">[Client Full Name]</div>
-            <div class="testi-meta">[City] · [Industry] · Team of [X]</div>
+            <div class="testi-name">Balbir Singh Dhillon </div>
+            <div class="testi-meta">Zonal Head,Audi </div>
           </div>
         </div>
       </div>
@@ -813,9 +962,27 @@
     ═══════════════════════════════════════════════════════════
     -->
     <div class="ghl-embed-zone">
-      <strong>⚙️ Insert Your GoHighLevel Form Here</strong>
-      This placeholder must be replaced with your GHL form embed before going live.
-      <code>&lt;!-- Paste your GHL form embed script or iframe here --&gt;</code>
+        <iframe
+            src="https://api.leadconnectorhq.com/widget/form/Y4XIc50HQZxmebJXaoYD"
+            style="width:100%;height:100%;border:none;border-radius:3px"
+            id="inline-Y4XIc50HQZxmebJXaoYD" 
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivati<strong>⚙️ Insert Your GoHighLevel Form Here</strong>
+                  This placeholder must be replaced with your GHL form embed before going live.
+                  <code>&lt;!-- Paste your GHL form embed script or iframe here --&gt;</code>on-value=""
+            data-form-name="Business Excellence Form Free Registration with ticket"
+            data-height="1107"
+            data-layout-iframe-id="inline-Y4XIc50HQZxmebJXaoYD"
+            data-form-id="Y4XIc50HQZxmebJXaoYD"
+            title="Business Excellence Form Free Registration with ticket"
+                >
+        </iframe>
+        <script src="https://link.msgsndr.com/js/form_embed.js"></script>
     </div>
 
     <p style="text-align:center; margin-top:16px; font-size:13px; color:#555;">🔒 No spam. WhatsApp only for webinar details &amp; reminder.</p>
@@ -843,4 +1010,3 @@
 
 </body>
 </html>
-
